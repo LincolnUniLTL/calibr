@@ -72,7 +72,7 @@ Now it's time to create some opening times in a CSV file or spreadsheet. I sugge
 
 If you did this on the [.xlsx](calendar.xlsx) file, export it as CSV.
 
-> _If that's a bit tricky to follow, load the example data as a trial, but edit it first to make sure it's in the future (to work around a current bug/feature). The easiest way to do this would be to change the year on all dates to a future one. If you do that, you might need to edit `$populate_months` in [settings.php](lib/config/settings.EXAMPLE.php) to make it load that far into the future._
+> _If that's a bit tricky to follow, load the example data as a trial, but edit it first to make sure it's in the future (to work around a [current bug/feature](http://github.com/LincolnUniLTL/calibr/issues/5)). The easiest way to do this would be to change the year on all dates to a future one. If you do that, you might need to edit `$populate_months` in [settings.php](lib/config/settings.EXAMPLE.php) to make it load that far into the future._
 
 Now in your web browser, open [csv_load.php](csv_load.php) under the path you placed your files. If you did everything above right, you should get happy output. If not, check your database settings, file names (did you rename the settings files?), and CSV file. Try try again.
 

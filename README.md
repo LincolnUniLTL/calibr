@@ -5,7 +5,7 @@ A simple opening hours calendar loading and rendering system. We use it for our 
 
 Based on code posted a long time ago by Andrew Darby to code4lib mailing list (then [written up in its journal](http://journal.code4lib.org/articles/46)) which used [Google Calendar](http://calendar.google.com). The [Calendar API](http://developers.google.com/google-apps/calendar/) (or was it the [Zend-based PHP library](http://framework.zend.com/manual/1.12/en/zend.gdata.html) that called it?) was returning incorrect responses to some queries, so we looked for alternatives. The code was completely rewritten and then refactored along with the database schema, so none of Andrew's implementation is intact AFAICS.
 
-Though it fits our current purposes, there's plenty more that can be done with this. They shall be logged as [tickets](issues).
+Though it fits our current purposes, there's plenty more that can be done with this. They shall be logged as [tickets](http://github.com/LincolnUniLTL/calibr/issues).
 
 Reference implementation
 ---------------------
@@ -68,7 +68,7 @@ Now it's time to create some opening times in a CSV file or spreadsheet. I sugge
 * For a single day, just populate the _Period start_ column and leave _Period end_ blank.
 * Populate the opening hours in the _Opens_ and _Closes_ columns. _For closed days_, leave both of those columns blank.
 * Use the _Notes_ column for your own convenience. It goes nowhere else. _In future, it might be used to show users extra information, e.g. in a tooltip ("Summer holidays" or "Labour Day")._
-* You can add exceptions to recurring period hours by creating another row any time after the original period's row. So for example, add a public holiday as you would any other day _after_ the period in which it occurs. The [example in the repository](calendar.csv) contains [one such example for October 28, 2013](calendar.csv#l19) (exception to [line 12](calendar.csv#l13)).
+* You can add exceptions to recurring period hours by creating another row any time after the original period's row. So for example, add a public holiday as you would any other day _after_ the period in which it occurs. The [example in the repository](calendar.csv) contains [one such example for October 28, 2013](calendar.csv#l18) (exception to [line 11](calendar.csv#l11)).
 
 If you did this on the [.xlsx](calendar.xlsx) file, export it as CSV.
 

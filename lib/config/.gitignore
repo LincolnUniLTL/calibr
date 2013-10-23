@@ -1,0 +1,3 @@
+﻿# ignore populated/actual configuration files
+database.php
+settings.php

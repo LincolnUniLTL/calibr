@@ -1,4 +1,5 @@
-﻿Calibr
+=======
+calibr
 ======
 A simple opening hours calendar loading and rendering system. We use it for our library hours (bilingually, see below). It could be useful beyond that.
 
@@ -99,3 +100,4 @@ Please report or peruse any issues, or suggest enhancements at the Github reposi
 <http://github.com/LincolnUniLTL/calibr/issues>
 
 The project's home is at <http://github.com/LincolnUniLTL/calibr> and some links in this README are relative to that.
+

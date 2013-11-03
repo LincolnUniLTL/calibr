@@ -4,6 +4,13 @@ require_once('app.php');
 
 // Let's get lots of variables available for templates ...
 
+$monthNames_en = array_map( 'date', array_fill(1,12,'F'), array_map( 'mktime', array_fill(1,12,0), array_fill(1,12,0), array_fill(1,12,0), range(1,12)) ); #must be a neater way to do this!
+$dayNames_en = array_map( 'date', array_fill(1,7,'l'), array_map( 'mktime', array_fill(1,7,0), array_fill(1,7,0), array_fill(1,7,0), array_fill(1,7,1), range(1,7)) ); # ... and this!
+
+require_once('config/translations.php');
+
+$translations['en'] = array_combine( $translatable_text, $translatable_text); // allows us to use English as key language and populate it from keys
+
 // $script_name = $_SERVER['SCRIPT_NAME'];
 
 $today = array(
@@ -15,49 +22,36 @@ $today = array(
 	'Y-m-d' => date('Y-m-d'),
 	);
 
-// translations
-$translations['mi'] = array(
-	'January' => 'Kohi-t&#257;tea / H&#257;nuere',
-	'February' =>  'Hui-ta<u>k</u>uru / P&#275;puere',
-	'March' => 'Pout&#363;-te-ra<u>k</u>i / M&#257;ehe',
-	'April' => 'Pae<u>k</u>a-wh&#257;wh&#257; / &#256;perira',
-	'May' => 'Haratua / Mei',
-	'June' => 'Pipiri / Hune',
-	'July' => 'H&#333;<u>k</u>o<u>k</u>oi / H&#363;rae',
-	// 'July' => 'H&#333;kokoi / H&#363;rae',
-	'August' => 'Here-turi-k&#333;k&#257; / &#256;kuhata',
-	'September' => 'Mahuru / Hepetema',
-	'October' => 'Whiri<u>k</u>a-&#257;-nuku / Oketopa',
-	'November' => 'Whiri<u>k</u>a-&#257;-ra<u>k</u>i / Noema',
-	// 'November' => 'Whirika-&#257;-raki / Noema',
-	'December' => 'Hakihea / T&#299;hema',
-	'Monday' => 'R&#257;hina / Mane',
-	'Tuesday' => 'R&#257;t&#363; / Turei',
-	'Wednesday' => 'R&#257;apa / Wenerei',
-	'Thursday' => 'R&#257;pare / Taite',
-	'Friday' => 'R&#257;mere / Paraire',
-	'Saturday' => 'R&#257;horoi',
-	'Sunday' => 'R&#257;tapu',
-	'Closed' => 'Kua kati',
-	'Library Hours of Opening' => 'K&#257; W&#257; Puare o te Wharep&#363;r&#257;kau',
-	'Opening Hours' => 'K&#257; W&#257; Puare',
-	'Library, Teaching and Learning' => 'Te Wharep&#363;r&#257;kau',
-	);
-
 // ******************************
 // Aux functions
 
 // convenience function - allows us not to have to include the global $translations in lookups
 function translate($text, $language, $strip = FALSE) {
-	global $translations;
-	// TODO: error handling??
-	$trans = $translations[$language][$text];
+	global $translations, $languages, $translatable_text;
+	
+	// handle some error cases ...
+	// $language not in $languages
+	if (!in_array($language, $languages)) {
+		cease_to_exist("Referenced language '$language' is not one of the languages listed in the translations configuration.");
+	}
+	// $text not in $translatable_text
+	else if (!in_array($text, $translatable_text)) {
+		cease_to_exist("The text \"$text\" is not one of the pieces of translatable text in the translations configuration.");
+	}
+	// $text not in $translations lookup for $language
+	else if (!array_key_exists($text, $translations[$language])) {
+		cease_to_exist("There is no translation in '$language' for \"$text\" provided in the translations configuration.");
+	}
+	else {
+		$trans = $translations[$language][$text];
+	}
+	
 	if ($strip) {
 		$trans = strip_tags($trans);
 	}
 	return $trans;
 }
-	
+
 function loadFromDB($from, $to) {
 	global $db_settings;
 	$conn = connect_mysqldb();

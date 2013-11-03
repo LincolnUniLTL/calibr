@@ -163,3 +163,11 @@ EOQ;
 function dayFromYmd($Ymd) {
 	return (int) substr($Ymd, 8);
 }
+
+// wrapper for die() to force a 500 error
+function cease_to_exist($message) {
+	#$buf = ob_get_clean();
+	header('HTTP/1.0 500 Internal Server Error');
+	#echo $buf;
+	die($message);
+}

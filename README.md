@@ -88,7 +88,7 @@ Unfortunately content is still quite mixed with logic as far as files go. In ord
 * [lib/templates/bottom.php](lib/templates/bottom.php)
 * [styles/hours.css](styles/hours.css)
 
-The [translations configuration file](lib/config/translations.php) allows you to choose which languages and translatable text your calendar displays. It comes pre-configured for _en_ and _mi_ ([Ngāi Tahu dialect](http://en.wikipedia.org/wiki/Ngai_Tahu#Dialect)) as an example/template. You need to provide translated text for any new languages and currently also one setting for the language's time format.
+The [translations configuration file](lib/config/translations.php) allows you to choose which languages and translatable text your calendar displays. It comes pre-configured for _en_ and _mi_ ([Ngāi Tahu dialect](http://en.wikipedia.org/wiki/Ngai_Tahu#Dialect)) as an example/template. There is also a [sample translation for German](lib/config/tranlations.php#L59) you can simply [add to the _$languages_](lib/config/tranlations.php#L3) array to see what a trilingual display looks like. You need to provide translated text for any new languages and currently also one setting for the language's time format.
 
 You probably don't want to leave files on the web server so that your data can be re-imported by anyone on the internet. It wouldn't have any real effect, but it's not the safest of practices the way it's set up currently. (It's not [safe](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Safe_methods) in the [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) sense.) Get rid of (or rename obscurely) either [csv_load.php](csv_load.php) or [calendar.csv](calendar.csv) to make such attempts fail.
 

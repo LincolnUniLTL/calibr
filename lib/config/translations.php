@@ -13,6 +13,12 @@ $translatable_text = array_merge(
 		)
 	);
 
+// **** English ****
+$language_settings['en'] = array(
+	'timeFormat' => 'g[:i]a',
+	);
+	
+// **** Māori (Ngāi Tahu dialect) ****
 $translations['mi'] = array(
 	'January' => 'Kohi-t&#257;tea / H&#257;nuere',
 	'February' =>  'Hui-ta<u>k</u>uru / P&#275;puere',
@@ -50,6 +56,33 @@ $language_settings['mi'] = array(
 		),
 	);
 
-$language_settings['en'] = array(
-	'timeFormat' => 'g[:i]a',
+// **** German ****
+$translations['de'] = array(
+	'January' => 'Januar',
+	'February' =>  'Februar',
+	'March' => 'März',
+	'April' => 'April',
+	'May' => 'Mai',
+	'June' => 'Juni',
+	'July' => 'Juli',
+	'August' => 'August',
+	'September' => 'September',
+	'October' => 'Oktober',
+	'November' => 'November',
+	'December' => 'Dezember',
+	'Monday' => 'Montag',
+	'Tuesday' => 'Dienstag',
+	'Wednesday' => 'Mittwoch',
+	'Thursday' => 'Donnerstag',
+	'Friday' => 'Freitag',
+	'Saturday' => 'Samstag',
+	'Sunday' => 'Sonntag',
+	'Closed' => 'geschlossen',
+	'Library Hours of Opening' => 'Öffnungszeiten der Bibliothek',
+	'Opening Hours' => 'Öffnungszeiten',
+	'Library, Teaching and Learning' => 'Bibliothek, Lehren und Lernen',
+	); # thanks/blames to Google translate (http://translate.google.com) for some of these last phrases
+
+$language_settings['de'] = array(
+	'timeFormat' => 'G.i',
 	);

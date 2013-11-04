@@ -64,14 +64,21 @@ function translated($text, $delimiter = ' ', $boundaries = array()) {
 	$ret .= ifExists($boundaries, 'beginning');
 
 	$trans = array();
+	$first_language = reset(array_values($languages));
+	
 	foreach ($languages as $language) {
 		$trans[$language] = ifExists($boundaries, 'pre');
 		$trans[$language] .= translate($text, $language);
 		$trans[$language] .= ifExists($boundaries, 'post');
 
 		//replace any @@LANG strings, which is a placeholder for language code
-		//TODO: supppress this for the first language - bit more complicated than not doing the substn, we need to clean up the attribute
 		$trans[$language] = str_replace('@@LANG', $language, $trans[$language]);
+		
+		// remove just the lang attribute for the first language - @class can stay because it may be useful to know which text was translated
+		//	(plus it could have got tricky with multiple classes)
+		if ($language == $first_language) {
+			$trans[$language] = preg_replace('/\s+lang=["\']' . $language . '["\']/i', '', $trans[$language]);
+		}
 	}
 	
 	$ret .= implode($trans, $delimiter);
@@ -170,8 +177,15 @@ function makeDateCell($entry, $classes = array()) {
 		// nothing to add
 	}
 	else {
+		$first_language = reset(array_values($languages));
 		foreach ($languages as $language) {
-			$ret .= "<p class=\"$language\" lang=\"$language\">" . timeDisplay($entry->opening, $language) . ' - ' . timeDisplay($entry->closing, $language) . "</p>\n";
+			$ret .= "<p class=\"$language\"";
+			if (! $first_language == $language) {
+				$ret .= " lang=\"$language\"";
+			}
+			$ret .= '>';
+			$ret .= timeDisplay($entry->opening, $language) . ' - ' . timeDisplay($entry->closing, $language);
+			$ret .= "</p>\n";
 		}
 	}
 	$ret .= "</div>\n</td>\n";

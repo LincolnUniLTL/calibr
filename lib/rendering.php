@@ -89,13 +89,12 @@ function translated($text, $delimiter = ' ', $boundaries = array()) {
 }
 
 // return an array member if its key exists, or empty string
-// NB. fallback return value assumes we want a string from this
-function ifExists($ary, $key) {
+function ifExists($ary, $key, $default = '') {
 	if ( array_key_exists($key, $ary) ) {
 		return $ary[$key];
 	}
 	else {
-		return '';
+		return $default;
 	}
 }
 
@@ -125,28 +124,30 @@ EOQ;
 function timeDisplay($time, $language='en') {
 	// in this function, we recognise square brackets to be discretionary display minute markers - render normally if non-zero and suppress if zero (see below)
 	
-	$hour = (int) date('G', $time);
-
-	$format = 'G:i'; // default neutral $format in case a condition below isn't true
-	switch ($language) {
-		case 'mi':
-			$format = "g[:i]";
-			switch (TRUE) {
-				case ($hour > 17):
-					$format .= ' (\p&#333;)';
-					break;
-				case ($hour > 12):
-					$format .= ' (\a\h\i\a\h\i)';
-					break;
-				case ($hour > 0):
-					$format .= ' (\a\t\a)';
-					break;
-			}
-			break;
-		default: //includes and equivalent to 'en'
-			$format = "g[:i]a";
-	}
+	global $language_settings;
 	
+	$format = 'G:i'; // default neutral $format in case no condition below is true
+	
+	if ( array_key_exists($language, $language_settings) and array_key_exists('timeFormat', $language_settings[$language]) ) {
+		if ( is_array($language_settings[$language]['timeFormat']) ) {
+			$timeFormats = $language_settings[$language]['timeFormat'];
+			$format = ifExists($timeFormats, 'fallback', $format); //set this if declared in case nothing gets set below
+
+			$timesFrom = array_filter(array_keys($timeFormats), 'is_integer');
+			ksort($timesFrom);
+
+			$hour = (int) date('G', $time);
+			foreach( $timesFrom as $timeFrom) {
+				if ( $hour >= $timeFrom ) {
+					$format = $timeFormats[$timeFrom];
+				}
+			}
+		}
+		else {
+			$format = $language_settings[$language]['timeFormat'];
+		}
+	}
+
 	// where we decide whether/how to show minutes to allow for suppression of zero values
 	$minute = (int) date('i', $time);
 	$format = preg_replace( '/\[(.+)\]/', ( $minute == 0 ? '' : '$1'), $format);

@@ -26,6 +26,7 @@ $today = array(
 // Aux functions
 
 // convenience function - allows us not to have to include the global $translations in lookups
+// TODO: deprecate $strip param - see below
 function translate($text, $language, $strip = FALSE) {
 	global $translations, $languages, $translatable_text;
 	
@@ -46,10 +47,49 @@ function translate($text, $language, $strip = FALSE) {
 		$trans = $translations[$language][$text];
 	}
 	
+	// deprecate this - it's rare and easy enough to just add a strip_tags where required after calling the function
 	if ($strip) {
 		$trans = strip_tags($trans);
 	}
+	
 	return $trans;
+}
+
+// render text in all $languages with surrounding text as specified
+// - make this into a class if any more methods are required on translation "objects"
+function translated($text, $delimiter = ' ', $boundaries = array()) {
+	global $languages;
+	$ret = ''; // build this up to return value
+	
+	$ret .= ifExists($boundaries, 'beginning');
+
+	$trans = array();
+	foreach ($languages as $language) {
+		$trans[$language] = ifExists($boundaries, 'pre');
+		$trans[$language] .= translate($text, $language);
+		$trans[$language] .= ifExists($boundaries, 'post');
+
+		//replace any @@LANG strings, which is a placeholder for language code
+		//TODO: supppress this for the first language - bit more complicated than not doing the substn, we need to clean up the attribute
+		$trans[$language] = str_replace('@@LANG', $language, $trans[$language]);
+	}
+	
+	$ret .= implode($trans, $delimiter);
+	
+	$ret .= ifExists($boundaries, 'end');
+	
+	return $ret;
+}
+
+// return an array member if its key exists, or empty string
+// NB. fallback return value assumes we want a string from this
+function ifExists($ary, $key) {
+	if ( array_key_exists($key, $ary) ) {
+		return $ary[$key];
+	}
+	else {
+		return '';
+	}
 }
 
 function loadFromDB($from, $to) {
@@ -74,7 +114,7 @@ EOQ;
 	
 	return $calendar;
 }
-	
+
 function timeDisplay($time, $language='en') {
 	$hour = (int) date('G', $time);
 	$minute = (int) date('i', $time);
@@ -103,7 +143,7 @@ function timeDisplay($time, $language='en') {
 }
 
 function makeDateCell($entry, $classes = array()) {
-	global $today;
+	global $today, $languages;
 	$ret = '';
 	
 	if ($entry->closed) {
@@ -120,15 +160,19 @@ function makeDateCell($entry, $classes = array()) {
 	$ret .= '<h3 class="dom">' . $entry->dom() . "</h3>\n";
 	$ret .= "<div class=\"times\">\n";
 	if ($entry->closed) {
-		$ret .= "<p>Closed</p>\n";
-		$ret .= '<p class="mi" lang="mi">' . translate('Closed', 'mi') . "</p>\n";
+		$ret .= translated('Closed', "\n", array(
+			'pre' => '<p lang="@@LANG" class="@@LANG">',
+			'post' => '</p>',
+			)
+			) . "\n";
 	}
 	elseif ($entry->invalid) {
 		// nothing to add
 	}
 	else {
-		$ret .= '<p>' . timeDisplay($entry->opening) . ' - ' . timeDisplay($entry->closing) . "</p>\n";
-		$ret .= '<p class="mi" lang="mi">' . timeDisplay($entry->opening, 'mi') . ' - ' . timeDisplay($entry->closing, 'mi') . "</p>\n";
+		foreach ($languages as $language) {
+			$ret .= "<p class=\"$language\" lang=\"$language\">" . timeDisplay($entry->opening, $language) . ' - ' . timeDisplay($entry->closing, $language) . "</p>\n";
+		}
 	}
 	$ret .= "</div>\n</td>\n";
 	return $ret;

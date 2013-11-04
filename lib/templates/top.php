@@ -15,6 +15,6 @@
 
 <div id="breadcrumbs">
     <p>
-        <strong>You are here: </strong><a href="http://library.example.edu">Home</a> > <a href="http://library.example.edu/About/">About the Library</a> > <span class="current">Library Hours of Opening ~ <?= translate('Library Hours of Opening', 'mi') ?></span>
+        <strong>You are here: </strong><a href="http://library.example.edu">Home</a> > <a href="http://library.example.edu/About/">About the Library</a> > <span class="current"><?= translated('Library Hours of Opening', ' ~ ') ?></span>
     </p>
 </div>

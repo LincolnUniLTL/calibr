@@ -14,8 +14,11 @@
 		$day_name = jddayofweek($d-1, 1);
 		?>
 		<th scope="col">
-			<p><?= $day_name ?></p>
-			<p class="mi" lang="mi"><?= $translations['mi'][$day_name] ?></p>
+			<?= translated($day_name, "\n", array(
+				'pre' => '<p class="@@LANG" lang="@@LANG">',
+				'post' => '</p>',
+				) )
+			?>
 		</th>
 		<?php
 	}

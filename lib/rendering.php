@@ -123,14 +123,14 @@ EOQ;
 }
 
 function timeDisplay($time, $language='en') {
+	// in this function, we recognise square brackets to be discretionary display minute markers - render normally if non-zero and suppress if zero (see below)
+	
 	$hour = (int) date('G', $time);
-	$minute = (int) date('i', $time);
-	$minuteFormat = ( $minute == 0 ? '' : ':i' ); // so we can only show minutes if they are not zero
 
 	$format = 'G:i'; // default neutral $format in case a condition below isn't true
 	switch ($language) {
 		case 'mi':
-			$format = "g$minuteFormat";
+			$format = "g[:i]";
 			switch (TRUE) {
 				case ($hour > 17):
 					$format .= ' (\p&#333;)';
@@ -144,8 +144,13 @@ function timeDisplay($time, $language='en') {
 			}
 			break;
 		default: //includes and equivalent to 'en'
-			$format = "g{$minuteFormat}a";
+			$format = "g[:i]a";
 	}
+	
+	// where we decide whether/how to show minutes to allow for suppression of zero values
+	$minute = (int) date('i', $time);
+	$format = preg_replace( '/\[(.+)\]/', ( $minute == 0 ? '' : '$1'), $format);
+	
 	return date($format, $time);
 }
 

@@ -64,7 +64,7 @@ function translated($text, $delimiter = ' ', $boundaries = array()) {
 	$ret .= ifExists($boundaries, 'beginning');
 
 	$trans = array();
-	$first_language = reset(array_values($languages));
+	$first_language = $languages[0];
 	
 	foreach ($languages as $language) {
 		$trans[$language] = ifExists($boundaries, 'pre');
@@ -177,7 +177,7 @@ function makeDateCell($entry, $classes = array()) {
 		// nothing to add
 	}
 	else {
-		$first_language = reset(array_values($languages));
+		$first_language = $languages[0];
 		foreach ($languages as $language) {
 			$ret .= "<p class=\"$language\"";
 			if (! $first_language == $language) {

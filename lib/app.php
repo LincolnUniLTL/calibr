@@ -12,7 +12,7 @@
 */
 
 define('APP_NAME', 'CALIBR');
-define('APP_VERSION', '1.0 beta1-20131011');
+define('APP_VERSION', '1.0 beta2-20131108');
 
 require('config/settings.php');
 

@@ -21,7 +21,6 @@ These probably won't change anytime soon. If they don't suit then this code migh
 These are current assumptions we plan to make go away:
 
 * **Hours are loaded in ahead of time.** Just how we roll right now. If you want to publish data from days past, you missed your chance. You'll get gaps. Pretty sure it's an easy fix. Just keep up for now.
-* ~~Bilingual in _en_ and _mi_. Andrew's calendar was hardcoded English. We wanted it bilingual with [Māori](http://en.wikipedia.org/wiki/M%C4%81ori_language) ([Ngāi Tahu dialect](http://en.wikipedia.org/wiki/Ngai_Tahu#Dialect))(for [Māori Language Week](http://www.nzhistory.net.nz/culture/maori-language-week) originally), so we coded that in. The words are from a lookup array and the hash index is the language code, so with a large simple edit, we could greatly extend the number of language configurations possible. We won't need a second language, we won't need English as the first one, and maybe we can be even more multilingual. As is, it's probably only useful to New Zealand libraries.~~ This is addressed by [Issue #4](http://github.com/LincolnUniLTL/calibr/issues/4).
 * **MySQL and PHP.** We'll be more specific about that in the installation section.
 
 How to install and make it useful

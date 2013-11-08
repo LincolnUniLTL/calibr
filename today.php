@@ -8,7 +8,7 @@ $calendar = loadFromDB(mktime(), mktime());
 $daystr = $today['Y-m-d'];
 
 if ( $calendar[$daystr]->closed ) {
-	$times = translate('Closed', $first_language, TRUE);
+	$times = strip_tags(translate('Closed', $first_language));
 }
 else {
 	$opens = timeDisplay($calendar[$daystr]->opening, $first_language);

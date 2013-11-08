@@ -1,4 +1,4 @@
-﻿=======
+=======
 calibr
 ======
 A simple opening hours calendar loading and rendering system. We use it for our library hours (bilingually, see below). It could be useful beyond that.

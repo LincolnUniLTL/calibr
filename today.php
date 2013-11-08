@@ -2,15 +2,17 @@
 
 require('lib/rendering.php');
 
+$first_language = $languages[0];
+
 $calendar = loadFromDB(mktime(), mktime());
 $daystr = $today['Y-m-d'];
 
 if ( $calendar[$daystr]->closed ) {
-	$times = 'Closed';
+	$times = translate('Closed', $first_language, TRUE);
 }
 else {
-	$opens = date('ga', $calendar[$daystr]->opening);
-	$closes = date('ga', $calendar[$daystr]->closing);
+	$opens = timeDisplay($calendar[$daystr]->opening, $first_language); #date('ga', $calendar[$daystr]->opening);
+	$closes = timeDisplay($calendar[$daystr]->closing, $first_language); #date('ga', $calendar[$daystr]->closing);
 	$times = implode('&#x2013;', array($opens, $closes));
 }
 

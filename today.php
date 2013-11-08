@@ -11,8 +11,8 @@ if ( $calendar[$daystr]->closed ) {
 	$times = translate('Closed', $first_language, TRUE);
 }
 else {
-	$opens = timeDisplay($calendar[$daystr]->opening, $first_language); #date('ga', $calendar[$daystr]->opening);
-	$closes = timeDisplay($calendar[$daystr]->closing, $first_language); #date('ga', $calendar[$daystr]->closing);
+	$opens = timeDisplay($calendar[$daystr]->opening, $first_language);
+	$closes = timeDisplay($calendar[$daystr]->closing, $first_language);
 	$times = implode('&#x2013;', array($opens, $closes));
 }
 

@@ -79,7 +79,7 @@ function load_csv_array($location, $from, $to) {
 	}
 	
 	while (($row = fgetcsv($handle)) !== FALSE) {
-		if ( ($row[$start_field_position] >= date('Y-m-d', $from) and $row[$start_field_position] <= date('Y-m-d', $to)) \
+		if ( ($row[$start_field_position] >= date('Y-m-d', $from) and $row[$start_field_position] <= date('Y-m-d', $to))
 				or ($row[$end_field_position] >= date('Y-m-d', $from) and $row[$end_field_position] <= date('Y-m-d', $to)) ) {
 			$data = array_merge($data, createOperatingDays(array_combine($header_row, $row)));
 		}

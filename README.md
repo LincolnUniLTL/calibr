@@ -29,7 +29,9 @@ So if all of the above is acceptable, here's how you do it.
 
 **Requirements**
 
-We run it on IIS with MySQL and PHP 5._x_ where _x_ < 2. Importantly, the DateTime object isn't required. You will need to set up _index.php_ as a default document for your directory in your web server. It probably already is. Nothing else I can think of is non-standard.
+We run it on IIS with MySQL and PHP 5._x_ where _x_ < 2. Importantly, the DateTime object isn't required. A test install on standard LAMP with Fedora went very smoothly indeed.
+
+You will need to set up _index.php_ as a default document for your directory in your web server. It probably already is. Nothing else I can think of is non-standard.
 
 **Installing**
 

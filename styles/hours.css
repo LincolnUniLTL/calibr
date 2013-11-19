@@ -111,6 +111,16 @@ h3.dom {
 	white-space: nowrap;
 }
 
+.poweredby {
+	float: right;
+	padding: 0.5em;
+	background-color: #efefde;
+	margin-right: 5%;
+	margin-top: 2em;
+	border-radius: 5px;
+	font: italic normal normal smaller Arial, Helvetica, sans-serif;
+}
+
 /* just for testing ATM
 .mi {
 	font-style: italic;

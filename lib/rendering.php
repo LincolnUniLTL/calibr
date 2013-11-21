@@ -100,22 +100,41 @@ function ifExists($ary, $key, $default = '') {
 
 function loadFromDB($from, $to) {
 	global $db_settings;
+
+	// We'll sneak these into the query to determine if we are the extremities of data
+	$from_previous = add_date($from, -1);
+	$from_previous_Ymd = date('Y-m-d', $from_previous);
+	$to_next = add_date($to, 1);
+	$to_next_Ymd = date('Y-m-d', $to_next);
+
 	$conn = connect_mysqldb();
 	$SQL = <<<EOQ
 		SELECT day, UNIX_TIMESTAMP(opens), UNIX_TIMESTAMP(closes)
 		FROM {$db_settings['name']}.{$db_settings['tables']['hours']}
 		WHERE
-			day >= FROM_UNIXTIME($from, '%Y-%m-%d')
+			day >= FROM_UNIXTIME($from_previous, '%Y-%m-%d')
 		AND
-			day <= FROM_UNIXTIME($to, '%Y-%m-%d')
+			day <= FROM_UNIXTIME($to_next, '%Y-%m-%d')
 		;
 EOQ;
 
 	$result = runSQL($SQL);
 	
 	$calendar = array();
-	while ($row = mysql_fetch_array($result)) {
+	while ( $row = mysql_fetch_array($result) ) {
 		$calendar[$row[0]] = new operatingDay($row[1], $row[2], $row[0]);
+	}
+
+	// test to see if there's data over the leading edge
+	$calendar['prev'] = array_key_exists($from_previous_Ymd, $calendar);
+	if ($calendar['prev']) {
+		unset($calendar[$from_previous_Ymd]); // remove from $calendar, no use to us now
+	}
+
+	// see if we are at the trailing extremity
+	$calendar['next'] = array_key_exists($to_next_Ymd, $calendar);
+	if ($calendar['next']) {
+		unset($calendar[$to_next_Ymd]); // remove from $calendar, no use to us now
 	}
 	
 	return $calendar;

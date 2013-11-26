@@ -12,7 +12,7 @@
 */
 
 define('APP_NAME', 'CALIBR');
-define('APP_VERSION', '1.0 beta3-20131121');
+define('APP_VERSION', '1.0 beta3-20131127');
 
 require('config/settings.php');
 
@@ -117,7 +117,7 @@ class operatingDay {
 	public function __construct($opens, $closes, $day = NULL) {
 		$this->closed = ( is_null($opens) and is_null($closes) );
 		$this->invalid = ( is_null($opens) xor is_null($closes) );
-		$this->invalid = $this->invalid or ( !$this->closed and date('Y-m-d', $this->opening) != date('Y-m-d', $this->closing) );
+		$this->invalid = $this->invalid or ( !$this->closed and date('Y-m-d', $opens) != date('Y-m-d', $closes) );
 		$this->opening = $opens;
 		$this->closing = $closes;
 		/* $this->oob = FALSE; // default ... ? */

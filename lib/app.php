@@ -1,14 +1,7 @@
 <?php
 
-/* TODO:
- - add semantic markup (eg RDFa) to calendar table
- - abstract out the native language and translations, make translation optional
- - update top and bottom files; genericise them for sharing
- - rendering for iCal etc
-
- TO FIX:
+/* TO FIX:
  - better separation of logic and presentation
- - stop pagination extending beyond limits of data (though it can be fun seeing Googlebot traversing back to 1970s dates)
 */
 
 define('APP_NAME', 'CALIBR');

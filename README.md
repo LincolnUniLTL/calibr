@@ -16,11 +16,13 @@ Assumptions
 These probably won't change anytime soon. If they don't suit then this code might not be for you:
 
 * **One opening per day.** No lunch breaks, sorry.
+* **Opening hours for every day are within the calendar day.** You can't open through the midnight hour. Thanks to [Bohyun Kim for pointing that out](https://listserv.nd.edu/cgi-bin/wa?A2=CODE4LIB;bbce3628.1311).
 * **_index.php_ is the default document.** That's easily fixed in your web server config if you don't like it.
 
 These are current assumptions we plan to make go away:
 
 * **Hours are loaded in ahead of time.** Just how we roll right now. If you want to publish data from days past, you missed your chance. You'll get gaps. Pretty sure it's an easy fix. Just keep up for now.
+* **HTML display period is a calendar month.** That's what we wnated without thinking too much about other options, which would admittedly be handy.
 * **MySQL and PHP.** We'll be more specific about that in the installation section.
 
 How to install and make it useful

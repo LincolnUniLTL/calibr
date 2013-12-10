@@ -63,9 +63,9 @@ If you were successful, you should be able to see a working HTML display in your
 
 **Loading data**
 
-Now it's time to create some opening times in a CSV file or spreadsheet. I suggest taking the file [calendar.xlsx](calendar.xlsx), editing that in your favourite spreadsheet application (Open/LibreOffice should load it fine) because it will enforce cell datatypes, and then exporting as CSV. Alternatively, just edit the [calendar.csv](calendar.csv) file directly (and stick to the date and time formats already there).
+Now it's time to create some opening times in a CSV file or spreadsheet. I strongly suggest taking the file [calendar.xlsx](calendar.xlsx), editing that in your favourite spreadsheet application (Open/LibreOffice should load it fine) because it will enforce cell datatypes, and then exporting as CSV. **_Note that if you edit the [calendar.csv](calendar.csv) file directly in Microsoft® Excel (even sticking to the date and time formats already there), it will probably reformat them on save (yes, true) and your import will fail._** A person who is not afraid of text files could alternatively edit the CSV file directly in a good text editor.
 
-> _For the moment, open hours data after the present day are deleted when the data is loaded. There'll be a gap in your calendar if you delete these rows in your spreadsheet or CSV file. Don't delete further back than today's date._
+> _For the moment, [open hours data after the present day are deleted when the data is loaded](http://github.com/LincolnUniLTL/calibr/issues/5). There'll be a gap in your calendar if you delete these rows in your spreadsheet or CSV file. Don't delete further back than today's date._
 
 * For continuous periods of the same opening hours, just populate the _Period start_ and _Period end_ columns. In the _Recurrence_ column, list the days of the week the hours apply to, as numbers. 1 is Monday through to 7 is Sunday. Don't delimit multiple numbers. For example, "5" is every Friday and "123" is Monday to Wednesday.
 * For a single day, just populate the _Period start_ column and leave _Period end_ blank.
@@ -73,7 +73,7 @@ Now it's time to create some opening times in a CSV file or spreadsheet. I sugge
 * Use the _Notes_ column for your own convenience. It goes nowhere else. _In future, it might be used to show users extra information, e.g. in a tooltip ("Summer holidays" or "Labour Day")._
 * You can add exceptions to recurring period hours by creating another row any time after the original period's row. So for example, add a public holiday as you would any other day _after_ the period in which it occurs. The [example in the repository](calendar.csv) contains [one such example for October 28, 2013](calendar.csv#l18) (exception to [line 11](calendar.csv#l11)).
 
-If you did this on the [.xlsx](calendar.xlsx) file, export it as CSV.
+If you did this on the [.xlsx](calendar.xlsx) file (recommended), export it as CSV.
 
 > _If that's a bit tricky to follow, load the example data as a trial, but edit it first to make sure it's in the future (to work around a [current bug/feature](http://github.com/LincolnUniLTL/calibr/issues/5)). The easiest way to do this would be to change the year on all dates to a future one. If you do that, you might need to edit `$populate_months` in [settings.php](lib/config/settings.EXAMPLE.php) to make it load that far into the future._
 

@@ -72,17 +72,24 @@ function load_csv_array($location, $from, $to) {
 		
 	$end_field_position = array_search('Period end', $header_row);
 	if ($start_field_position === FALSE) {
-		die("Unable to find CSV column heading 'Period start', quitting.");
+		cease_to_exist("Unable to find CSV column heading 'Period start', quitting.");
 	}
 	if ($end_field_position === FALSE) {
-		die("Unable to find CSV column heading 'Period end', quitting.");
+		cease_to_exist("Unable to find CSV column heading 'Period end', quitting.");
 	}
 	
+	$date_pattern = '/^\d{4}(-\d{2}){2}$/'; // dates loaded should conform to this
 	while (($row = fgetcsv($handle)) !== FALSE) {
 		// these vars are just set for readability
 		$start_date = $row[$start_field_position];
 		$end_date = $row[$end_field_position];
-		if ( ($start_date >= date('Y-m-d', $from) and $start_date <= date('Y-m-d', $to))
+		if ( !preg_match($date_pattern, $start_date) ) {
+			cease_to_exist("Start date value '$start_date' from $location is not in YYYY-mm-dd format, please correct and retry. No data loaded, quitting.");
+		}
+		elseif ( !(empty($end_date) or preg_match($date_pattern, $end_date)) ) {
+			cease_to_exist("End date value '$end_date' from $location is not in YYYY-mm-dd format, please correct and retry. No data loaded, quitting.");
+		}
+		elseif ( ($start_date >= date('Y-m-d', $from) and $start_date <= date('Y-m-d', $to))
 				or ($end_date >= date('Y-m-d', $from) and $end_date <= date('Y-m-d', $to)) ) {
 			$data = array_merge($data, createOperatingDays(array_combine($header_row, $row)));
 		}

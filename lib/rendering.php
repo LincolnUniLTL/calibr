@@ -4,7 +4,7 @@ require_once('app.php');
 
 // Let's get lots of variables available for templates ...
 
-$monthNames_en = array_map( 'date', array_fill(1,12,'F'), array_map( 'mktime', array_fill(1,12,0), array_fill(1,12,0), array_fill(1,12,0), range(1,12)) ); #must be a neater way to do this!
+$monthNames_en = array_map( 'date', array_fill(1,12,'F'), array_map( 'mktime', array_fill(1,12,0), array_fill(1,12,0), array_fill(1,12,0), range(1,12), array_fill(1,12,2)) ); #must be a neater way to do this!
 $dayNames_en = array_map( 'date', array_fill(1,7,'l'), array_map( 'mktime', array_fill(1,7,0), array_fill(1,7,0), array_fill(1,7,0), array_fill(1,7,1), range(1,7)) ); # ... and this!
 
 require_once('config/translations.php');

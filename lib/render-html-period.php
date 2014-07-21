@@ -41,23 +41,13 @@ $days_before = date('N', $requested_period['month_start']) - 1;
 $before_from = add_date($requested_period['month_start'], 0 - $days_before);
 $before_to = add_date($requested_period['month_start'], -1);
 
-if ($show_oob_days and $days_before > 0) {
-	$calendar_before = loadFromDB($before_from, $before_to);
-	ksort($calendar_before);
-}
-else {
-	$calendar_before = array(); 
-}
+$calendar_before = loadFromDB($before_from, $before_to);
+ksort($calendar_before);
 
 // determine after oobs regardless of whether they will be displayed
 $days_after = 7 - date('N', $requested_period['month_end']);
 $after_from = add_date($requested_period['month_end'], 1);
 $after_to = add_date($requested_period['month_end'], $days_after);
 
-if ($show_oob_days and $days_after > 0) {
-	$calendar_after = loadFromDB($after_from, $after_to); // TODO - test if sending this a 0-length range of days results in an empty array - that would be neater
-	ksort($calendar_after);
-}
-else {
-	$calendar_after = array();
-}
+$calendar_after = loadFromDB($after_from, $after_to);
+ksort($calendar_after);

@@ -2,12 +2,12 @@
 <h2><?= $requested_period['heading'] ?></h2>
 <ul class="prevnext">
 	<?php
-	if ($calendar_before['prev']) {
+	if ($calendar['prev']) {
 	?>
 	<li rel="prev" class="prev"><a href="<?= $previous_period['href'] ?>" title="<?= $previous_period['title'] ?>">&#171;</a></li>
 	<?php
 	}
-	if ($calendar_after['next']) {
+	if ($calendar['next']) {
 	?>
 	<li rel="next" class="next"><a href="<?= $next_period['href'] ?>" title="<?= $next_period['title'] ?>">&#187;</a></li>
 	<?php

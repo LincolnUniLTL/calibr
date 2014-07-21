@@ -125,7 +125,7 @@ EOQ;
 		$calendar[$row[0]] = new operatingDay($row[1], $row[2], $row[0]);
 	}
 
-	// test to see if there's data over the leading edge
+	// test to see if there's data before the leading edge
 	$calendar['prev'] = array_key_exists($from_previous_Ymd, $calendar);
 	if ($calendar['prev']) {
 		unset($calendar[$from_previous_Ymd]); // remove from $calendar, no use to us now

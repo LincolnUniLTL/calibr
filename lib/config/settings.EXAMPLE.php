@@ -19,5 +19,6 @@ $facility_name = 'Example University Grand Opulent Central Library';
 $branded = TRUE; // whether to show (configurable) "powered by" style text linking to the software at the calendar bottom
 
 $timezone = 'Pacific/Auckland'; // server time - used in loading data only, may be legacy(?), and if you trust your PHP config you can probably load that environment variable here
+putenv("TZ=$timezone");
 
 ?>

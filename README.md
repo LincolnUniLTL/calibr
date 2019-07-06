@@ -22,7 +22,7 @@ These probably won't change anytime soon. If they don't suit then this code migh
 These are current assumptions we plan to make go away:
 
 * **Hours are loaded in ahead of time.** Just how we roll right now. If you want to publish data from days past, you missed your chance. You'll get gaps. Pretty sure it's an easy fix. Just keep up for now.
-* **HTML display period is a calendar month.** That's what we wnated without thinking too much about other options, which would admittedly be handy.
+* **HTML display period is a calendar month.** That's what we wanted without thinking too much about other options, which would admittedly be handy.
 * **MySQL and PHP.** We'll be more specific about that in the installation section.
 
 How to install and make it useful
